@@ -1,4 +1,8 @@
-export class Pessoa {
+import { Column, PrimaryGeneratedColumn, Entity, OneToOne, ManyToMany, ManyToOne } from 'typeorm';
+import { UsuarioEntity } from '../../security/models/usuario.entity';
+
+@Entity('pessoas', { schema: 'personal' })
+export class PessoaEntity {
   private _id: string;
   private _nome: string;
   private _email: string;
@@ -9,7 +13,10 @@ export class Pessoa {
   private _ultimaInstituicaoDeEnsino: string;
   private _cidadeInstituicaiDeEnsino: string;
   private _nivelEducacional: string;
+  private _usuario: UsuarioEntity;
+  
 
+  @PrimaryGeneratedColumn('uuid', { name: 'id' })
   public get id(): string {
     return this._id;
   }
@@ -17,6 +24,8 @@ export class Pessoa {
   public set id(value: string) {
     this._id = value;
   }
+
+  @Column('varchar', { name: 'nome', length: 255 })
   public get nome(): string {
     return this._nome;
   }
@@ -25,6 +34,7 @@ export class Pessoa {
     this._nome = value;
   }
 
+  @Column('varchar', { name: 'email', length: 255, unique: true })
   public get email(): string {
     return this._email;
   }
@@ -33,6 +43,7 @@ export class Pessoa {
     this._email = value;
   }
 
+  @Column('timestamp', { name: 'dataAniversario' })
   public get dataAniversario(): Date {
     return this._dataAniversario;
   }
@@ -41,6 +52,7 @@ export class Pessoa {
     this._dataAniversario = value;
   }
 
+  @Column('boolean', { name: 'isDeficiente', default: false })
   public get isDeficiente(): boolean {
     return this._isDeficiente;
   }
@@ -49,6 +61,7 @@ export class Pessoa {
     this._isDeficiente = value;
   }
 
+  @Column('varchar', { name: 'nomeDoPai', length: 255 })
   public get nomeDoPai(): string {
     return this._nomeDoPai;
   }
@@ -57,6 +70,7 @@ export class Pessoa {
     this._nomeDoPai = value;
   }
 
+  @Column('varchar', { name: 'nomeDoMae', length: 255 })
   public get nomeDaMae(): string {
     return this._nomeDaMae;
   }
@@ -65,6 +79,7 @@ export class Pessoa {
     this._nomeDaMae = value;
   }
 
+  @Column('varchar', { name: 'ultimaInstituicaoDeEnsino', length: 255 })
   public get ultimaInstituicaoDeEnsino(): string {
     return this._ultimaInstituicaoDeEnsino;
   }
@@ -73,6 +88,7 @@ export class Pessoa {
     this._ultimaInstituicaoDeEnsino = value;
   }
 
+  @Column('varchar', { name: 'cidadeInstituicaiDeEnsino', length: 255 })
   public get cidadeInstituicaiDeEnsino(): string {
     return this._cidadeInstituicaiDeEnsino;
   }
@@ -81,6 +97,7 @@ export class Pessoa {
     this._cidadeInstituicaiDeEnsino = value;
   }
 
+  @Column('varchar', { name: 'nivelEducacional', length: 255 })
   public get nivelEducacional(): string {
     return this._nivelEducacional;
   }
@@ -88,4 +105,14 @@ export class Pessoa {
   public set nivelEducacional(value: string) {
     this._nivelEducacional = value;
   }
+
+  @ManyToOne(type => UsuarioEntity, u => u.pessoa)
+  public get usuario(): UsuarioEntity {
+    return this._usuario;
+  }
+
+  public set usuario(value: UsuarioEntity) {
+    this._usuario = value;
+  }
+
 }
