@@ -1,0 +1,35 @@
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { AlunoEntity } from '../entities/aluno.entity';
+import { TurmaEntity } from '../entities/turma.entity';
+import { MatriculaDiaLetivoEntity } from './matricula-dia-letivo.entity';
+
+@Entity('matriculas')
+export class MatriculaEntity {
+  @PrimaryGeneratedColumn('uuid')
+  public id!: string;
+
+  @Column('integer', { name: 'numero' })
+  public numero!: number;
+
+  @Column('integer', { name: 'faltas' })
+  public faltas!: number;
+
+  @Column('numeric')
+  public nota!: number;
+
+  @Column()
+  public alunoId!: string;
+
+  @Column()
+  public turmaId!: string;
+
+  @ManyToOne(type => AlunoEntity, aluno => aluno.matriculas)
+  public aluno!: AlunoEntity;
+
+  @ManyToOne(type => TurmaEntity, turma => turma.matricula)
+  public turma!: TurmaEntity;
+
+  @OneToMany(type => MatriculaDiaLetivoEntity, mdl => mdl.matricula)
+  public matriculaDiaLetivos!: MatriculaDiaLetivoEntity[];
+
+}

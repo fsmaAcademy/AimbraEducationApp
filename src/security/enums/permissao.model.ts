@@ -1,6 +1,0 @@
-export enum Permissao {
-  ROOT = 'ROOT',
-  ESTUDANTE = 'ESTUDANTE',
-  PROFESSOR = 'PROFESSOR',
-  ADMINISTRADOR = 'ADMINISTRADOR'
-}

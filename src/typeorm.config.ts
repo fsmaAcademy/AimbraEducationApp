@@ -7,31 +7,17 @@ export class TypeOrmConfig {
 
   public connections = [
     {
-      name: 'aimbraSecurity',
+      name: 'ktrak',
       type: 'postgres',
       host: '127.0.0.1',
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'aimbra_education',
+      database: 'ktrak',
       entities: [
         __dirname + '/**/*.entity{.ts,.js}'
       ],
-      schema: 'security',
-      synchronize: true
-    },
-    {
-      name: 'aimbraPersonal',
-      type: 'postgres',
-      host: '127.0.0.1',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'aimbra_education',
-      entities: [
-        __dirname + '/**/*.entity{.ts,.js}'
-      ],
-      schema: 'personal',
+      schema: 'sistema',
       synchronize: true
     }
   ];
